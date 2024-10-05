@@ -18,6 +18,9 @@ router.post("/scrape/apple-music", async (req, res) => {
 
     // Launch Playwright with Chromium
     const browser = await chromium.launch();
+
+    console.log("New Page Start");
+
     const page = await browser.newPage();
 
     // Construct the playlist URL using the provided playlistId

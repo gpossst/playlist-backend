@@ -17,7 +17,16 @@ router.post("/scrape/apple-music", async (req, res) => {
     }
 
     // Launch Playwright with Chromium
-    const browser = await chromium.launch();
+    const browser = await chromium.launch({
+      headless: true,
+      args: [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-dev-shm-usage", // Avoids potential shared memory issues
+        "--disable-gpu", // Disable GPU for headless mode
+        "--no-zygote", // Disable zygote process
+      ],
+    });
 
     console.log("New Page Start");
 
@@ -29,7 +38,7 @@ router.post("/scrape/apple-music", async (req, res) => {
     console.log("Started open playlist");
 
     // Navigate to the playlist page
-    await page.goto(playlistUrl, { waitUntil: "networkidle" });
+    await page.goto(playlistUrl, { waitUntil: "domcontentloaded" });
 
     console.log("Playlist opened");
 

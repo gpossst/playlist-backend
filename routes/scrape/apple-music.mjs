@@ -38,7 +38,7 @@ router.post("/scrape/apple-music", async (req, res) => {
     console.log("Started open playlist");
 
     // Navigate to the playlist page
-    await page.goto(playlistUrl, { waitUntil: "domcontentloaded" });
+    await page.goto(playlistUrl, { waitUntil: "networkidle" });
 
     console.log("Playlist opened");
 

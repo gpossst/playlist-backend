@@ -1,7 +1,9 @@
 import express from "express";
 import scrapeRoutes from "./routes/scrape/apple-music.mjs"; // Assume your routes are stored in a separate file
+import cors from "cors";
 
 const app = express();
+app.use(cors());
 
 // Ensure this comes before your routes
 app.use(express.json()); // To parse JSON request bodies

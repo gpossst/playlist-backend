@@ -23,8 +23,12 @@ router.post("/scrape/apple-music", async (req, res) => {
     // Construct the playlist URL using the provided playlistId
     const playlistUrl = `https://music.apple.com/us/playlist/${playlistId}`;
 
+    console.log("Started open playlist");
+
     // Navigate to the playlist page
     await page.goto(playlistUrl, { waitUntil: "networkidle" });
+
+    console.log("Playlist opened");
 
     // Wait for the song names to load and create a locator
     const songNameLocator = page.locator(".songs-list-row__song-name");
@@ -42,11 +46,15 @@ router.post("/scrape/apple-music", async (req, res) => {
       elements.map((element) => element.textContent?.trim())
     );
 
+    console.log("Scrape complete");
+
     // Pair the song names with the corresponding artist names
     const pairedData = songNames.map((songName, index) => ({
       songName,
       artistName: artistNames[index] || "Unknown", // In case the artist name is missing
     }));
+
+    console.log("Data paired");
 
     // Close the browser after scraping
     await browser.close();

@@ -7,6 +7,10 @@ const router = express.Router();
 
 app.use(express.json()); // Middleware to parse JSON request bodies
 
+router.get("/create/spotify", async (req, res) => {
+  res.json({ message: "Request was successful!" });
+});
+
 // Route to handle the creation of a Spotify playlist and add songs to it
 router.post("/create/spotify", async (req, res) => {
   try {

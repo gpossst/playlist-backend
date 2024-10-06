@@ -1,5 +1,6 @@
 import express from "express";
-import scrapeRoutes from "./routes/scrape/apple-music.mjs"; // Assume your routes are stored in a separate file
+import scrapeAM from "./routes/scrape/apple-music.mjs"; // Assume your routes are stored in a separate file
+import createSP from "./routes/create/spotify.mjs";
 import cors from "cors";
 
 const app = express();
@@ -9,7 +10,8 @@ app.use(cors());
 app.use(express.json()); // To parse JSON request bodies
 
 // Use the router that contains the scraping route
-app.use(scrapeRoutes);
+app.use(scrapeAM);
+app.use(createSP);
 
 // Fallback route for successful responses (or another route)
 app.get("/", (req, res) => {

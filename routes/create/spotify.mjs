@@ -2,10 +2,13 @@ import express from "express";
 import fetch from "node-fetch"; // Ensure you have node-fetch installed for fetch support
 
 const app = express();
+
+const router = express.Router();
+
 app.use(express.json()); // Middleware to parse JSON request bodies
 
 // Route to handle the creation of a Spotify playlist and add songs to it
-app.post("/api/spotify/playlist", async (req, res) => {
+router.post("/create/spotify", async (req, res) => {
   try {
     // Parse the incoming request body
     const { accessToken, userId, songs } = req.body;
@@ -117,12 +120,10 @@ app.post("/api/spotify/playlist", async (req, res) => {
 
       if (!addSongsResponse.ok) {
         const errorData = await addSongsResponse.json();
-        return res
-          .status(addSongsResponse.status)
-          .json({
-            error: "Failed to add songs to playlist",
-            details: errorData,
-          });
+        return res.status(addSongsResponse.status).json({
+          error: "Failed to add songs to playlist",
+          details: errorData,
+        });
       }
     }
 

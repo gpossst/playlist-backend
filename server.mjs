@@ -4,7 +4,16 @@ import createSP from "./routes/create/spotify.mjs";
 import cors from "cors";
 
 const app = express();
-app.use(cors());
+
+// Allow requests only from your frontend domain
+const corsOptions = {
+  origin: "https://www.playlisttransfers.app",
+  methods: ["GET", "POST"], // Specify the allowed HTTP methods
+  allowedHeaders: ["Content-Type", "Authorization"], // Specify the allowed headers
+  credentials: true, // Allow credentials if needed
+};
+
+app.use(cors(corsOptions));
 
 // Ensure this comes before your routes
 app.use(express.json()); // To parse JSON request bodies

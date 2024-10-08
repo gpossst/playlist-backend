@@ -43,8 +43,8 @@ router.post("/create/spotify", async (req, res) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: "New Playlist", // Customize playlist name if needed
-          description: "Created with my app", // Optional description
+          name: "Generated Playlist - Playlist Transfers", // Customize playlist name if needed
+          description: "Created by playlisttransfers.app", // Optional description
           public: false, // Set to true if you want the playlist to be public
         }),
       }

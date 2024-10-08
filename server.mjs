@@ -1,30 +1,33 @@
 import express from "express";
-import scrapeAM from "./routes/scrape/apple-music.mjs"; // Assume your routes are stored in a separate file
+import scrapeAM from "./routes/scrape/apple-music.mjs";
 import createSP from "./routes/create/spotify.mjs";
 import cors from "cors";
 
 const app = express();
 
-// Allow requests only from your frontend domain
+// CORS options
 const corsOptions = {
-  origin: "**",
-  methods: ["GET", "POST"], // Specify the allowed HTTP methods
-  allowedHeaders: ["Content-Type", "Authorization"], // Specify the allowed headers
+  origin: "https://www.playlisttransfers.app", // Replace with your frontend domain
+  methods: ["GET", "POST"], // Specify allowed HTTP methods
+  allowedHeaders: ["Content-Type"], // Specify allowed headers
 };
 
-app.use(cors(corsOptions));
+app.use(cors(corsOptions)); // Apply CORS
 
-// Ensure this comes before your routes
-app.use(express.json()); // To parse JSON request bodies
+// Middleware to parse JSON request bodies
+app.use(express.json());
 
-// Use the router that contains the scraping route
+// Your API routes
 app.use(scrapeAM);
 app.use(createSP);
 
-// Fallback route for successful responses (or another route)
+// Fallback route
 app.get("/", (req, res) => {
   res.json({ message: "Request was successful!" });
 });
 
+// Start the server
 const port = 3000;
-app.listen(port);
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});

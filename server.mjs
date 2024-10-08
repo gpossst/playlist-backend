@@ -7,10 +7,9 @@ const app = express();
 
 // Allow requests only from your frontend domain
 const corsOptions = {
-  origin: "https://www.playlisttransfers.app",
+  origin: "**",
   methods: ["GET", "POST"], // Specify the allowed HTTP methods
   allowedHeaders: ["Content-Type", "Authorization"], // Specify the allowed headers
-  credentials: true, // Allow credentials if needed
 };
 
 app.use(cors(corsOptions));
@@ -28,6 +27,4 @@ app.get("/", (req, res) => {
 });
 
 const port = 3000;
-app.listen(port, () => {
-  console.log(`Server is running on http://0.0.0.0:${port}`);
-});
+app.listen(port);

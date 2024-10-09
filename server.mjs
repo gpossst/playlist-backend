@@ -7,7 +7,7 @@ const app = express();
 
 // CORS options
 const corsOptions = {
-  origin: "https://www.playlisttransfers.app", // Replace with your frontend domain
+  origin: ["https://www.playlisttransfers.app", "http://localhost:3000"], // Replace with your frontend domain
   methods: ["GET", "POST"], // Specify allowed HTTP methods
   allowedHeaders: ["Content-Type"], // Specify allowed headers
 };
